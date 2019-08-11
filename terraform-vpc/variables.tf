@@ -4,4 +4,6 @@ variable "cidr" {}
 
 variable "name" {}
 
-variable "subnet_cidrs" {}
+variable "private_subnet_cidrs" {}
+
+variable "public_subnet_cidrs" {}
