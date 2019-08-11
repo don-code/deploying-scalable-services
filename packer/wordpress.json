@@ -1,0 +1,38 @@
+{
+  "builders": [
+    {
+      "ami_name": "packer-wordpress {{timestamp}}",
+      "associate_public_ip_address": true,
+      "instance_type": "t2.micro",
+      "region": "us-east-1",
+      "source_ami": "ami-0b898040803850657",
+      "subnet_filter": {
+        "filters": {
+          "tag:Name": "{{user `vpc_name`}}*"
+        },
+        "most_free": true
+      },
+      "ssh_username": "ec2-user",
+      "type": "amazon-ebs",
+      "vpc_filter": {
+        "filters": {
+          "tag:Name": "{{user `vpc_name`}}"
+        }
+      }
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "sudo yum -y install docker",
+        "sudo chkconfig --level 35 docker on",
+        "sudo service docker start",
+        "sudo docker pull wordpress:php7.3-apache"
+      ]
+    }
+  ],
+  "variables": {
+    "vpc_name": "production-don-test"
+  }
+}
