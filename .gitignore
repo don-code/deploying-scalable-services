@@ -1,0 +1,7 @@
+# Garbage from Terraform
+*/.terraform
+*/terraform.tfstate
+*/terraform.*.backup
+
+# Garbage from vim
+*.swp
